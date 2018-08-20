@@ -59,8 +59,8 @@ class Tags extends React.Component {
     const {
       containerStyle,
       style,
-      tagContainerStyle,
-      tagTextStyle,
+      tagContainerStyleFunc,
+      tagTextStyleFunc,
       deleteOnTagPress,
       onTagPress,
       readonly,
@@ -94,8 +94,8 @@ class Tags extends React.Component {
               }
             }}
             readonly={readonly}
-            tagContainerStyle={tagContainerStyle}
-            tagTextStyle={tagTextStyle}
+            tagContainerStyle={tagContainerStyleFunc(tag, i)}
+            tagTextStyle={tagTextStyleFunc(tag, i)}
           />
         ))}
 
@@ -118,6 +118,8 @@ class Tags extends React.Component {
 Tags.defaultProps = {
   initialTags: [],
   initialText: " ",
+  tagContainerStyleFunc: (() => ({})), // Function that returns empty style object
+  tagTextStyleFunc: (() => ({})), // Function that returns empty style object
   readonly: false,
   deleteOnTagPress: true,
   maxNumberOfTags: Number.POSITIVE_INFINITY
@@ -130,8 +132,8 @@ Tags.propTypes = {
   containerStyle: PropTypes.object,
   style: PropTypes.object,
   inputStyle: PropTypes.object,
-  tagContainerStyle: PropTypes.object,
-  tagTextStyle: PropTypes.object,
+  tagContainerStyleFunc: PropTypes.func, // Type signature: (tag: string, index: number) => object
+  tagTextStyleFunc: PropTypes.func, // Type signature: (tag: string, index: number) => object
   readonly: PropTypes.bool,
   maxNumberOfTags: PropTypes.number,
   deleteOnTagPress: PropTypes.bool
